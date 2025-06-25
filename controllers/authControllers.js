@@ -35,7 +35,7 @@ const registration = async (req, res) => {
       });
       user.save();
 
-      // Send this genarated otp to the user email
+      // ============= Send this genarated otp to the user email =========== //
       sendMail(email, "Verify your email.", verifyEmailTemplate, randomOtp)
 
       res.status(201).send({success: "Registration susseccfull! Please verify your email."});
@@ -62,8 +62,8 @@ const verifyEmailAddress = async (req, res)=>{
   }
 }
 
-// Login Controller
-const loginController = async (req, res) => {
+ // =========== Login Controller ========== //
+ const loginController = async (req, res) => {
   const { email, password } = req.body;
   
  try {
@@ -103,8 +103,8 @@ const loginController = async (req, res) => {
  }
 };
 
-// Forgat password
-const forgatPass = async (req, res) => {
+ // ============ Forgat password =========== // 
+ const forgatPass = async (req, res) => {
   const {email} = req.body;
 
  try {
@@ -117,16 +117,16 @@ const forgatPass = async (req, res) => {
   existingUser.resetPassExpiredAt = new Date(Date.now() + 10 * 60 * 1000)
   existingUser.save()
 
-  // Send reset password email
+  // =========== Send reset password email ========== //
   sendMail(email, "Reset Password.", resetPassTemplate, randomString)
   res.status(201).send("Check your email")
  } catch (error) {
   res.status(500).send("Server error!")
  }
-}
+ }
 
-// Reset password
-const resetPass = async (req, res)=>{
+ // ============ Reset password ========= // 
+ const resetPass = async (req, res)=>{
   try {
     const {newPass} =  req.body;
     const randomString = req.params.randomstring;
@@ -157,10 +157,10 @@ const update = async (req, res)=>{
   
   if(req?.file?.path){
     
-    // delete existing avatar if exist
+    // =========== delete existing avatar if exist ========= //
     if(existingUser.avatar) await cloudinary.uploader.destroy(existingUser.avatar.split('/').pop().split('.')[0]);
     
-    // Upload Avatar
+    // ========== Upload Avatar ============ // 
     const result = await cloudinary.uploader.upload(req.file.path, { folder: "Avatar"})
     existingUser.avatar = result.url;
     fs.unlinkSync(req.file.path)
@@ -171,5 +171,6 @@ const update = async (req, res)=>{
  } catch (error) {
   res.status(500).send("Server error!")
  }
-}
-module.exports = { registration, verifyEmailAddress, loginController, forgatPass, resetPass, update};
+ }
+ module.exports = { registration, verifyEmailAddress, loginController, forgatPass, resetPass, update};
+  // hfbadjksfhafasdasdfasdfjkasdfjkasdfjkasdfjkasdfjasjdfkasjdfa
