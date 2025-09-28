@@ -173,4 +173,3 @@ const update = async (req, res)=>{
  }
  }
  module.exports = { registration, verifyEmailAddress, loginController, forgatPass, resetPass, update};
-  // hfbadjksfhafasdasdfasdfjkasdfjkasdfjkasdfjkasdfjasjdfkasjdfa
